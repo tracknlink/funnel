@@ -23,7 +23,6 @@
       font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       color: white;
-      display: flex;
     }
 
     .sidebar {
@@ -32,6 +31,7 @@
       min-height: 100vh;
       padding: 2rem 1rem;
       position: fixed;
+      transition: transform 0.3s ease;
     }
     .sidebar h2 {
       color: var(--primary);
@@ -69,18 +69,21 @@
     .main {
       margin-left: 250px;
       padding: 2rem;
-      width: calc(100% - 250px);
+      transition: margin-left 0.3s ease;
     }
+
     .main h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       margin-bottom: 2rem;
     }
+
     .cards {
       display: flex;
       gap: 2rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
     }
+
     .card {
       flex: 1;
       background: #1c1c1c;
@@ -90,15 +93,18 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       min-width: 200px;
     }
+
     .card h2 {
       font-size: 2rem;
       color: var(--primary);
     }
+
     .charts {
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
+
     canvas {
       background: #1c1c1c;
       padding: 1rem;
@@ -106,10 +112,53 @@
       height: 300px !important;
       width: 100% !important;
     }
+
+    /* Sidebar toggle button */
+    .sidebar-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+      background-color: var(--primary);
+      color: #000;
+      font-weight: bold;
+      font-size: 1.5rem;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      display: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        height: 100%;
+        z-index: 999;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .sidebar-btn {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="sidebar">
+  <button class="sidebar-btn" onclick="toggleSidebar()">☰</button>
+
+  <div class="sidebar" id="sidebar">
     <h2>TrackNLink</h2>
     <ul>
       <li><a href="#">Dashboard</a></li>
@@ -155,6 +204,11 @@
     function toggleDropdown(e, id) {
       e.preventDefault();
       document.getElementById(id).parentElement.classList.toggle('open');
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
     }
 
     const impressionCtx = document.getElementById('impressionChart').getContext('2d');
