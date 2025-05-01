@@ -23,6 +23,21 @@
       background-color: var(--dark);
       color: white;
       display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary);
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      z-index: 1001;
+      border-radius: var(--border-radius);
+      cursor: pointer;
     }
 
     .sidebar {
@@ -31,7 +46,12 @@
       min-height: 100vh;
       padding: 2rem 1rem;
       position: fixed;
+      top: 0;
+      left: 0;
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
     }
+
     .sidebar h2 {
       color: var(--primary);
       font-size: 1.8rem;
@@ -68,21 +88,26 @@
     .main {
       margin-left: 250px;
       padding: 3rem 2rem;
-      width: calc(100% - 250px);
+      transition: margin-left 0.3s;
     }
+
     .main h1 {
       font-size: 2rem;
       margin-bottom: 2rem;
       color: var(--primary);
+      text-align: center;
     }
+
     .shortener-box {
       background-color: #1c1c1c;
       padding: 2rem;
       border-radius: var(--border-radius);
       max-width: 600px;
+      margin: 0 auto;
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.4);
     }
+
     input[type="url"] {
       width: 80%;
       padding: 0.75rem 1rem;
@@ -92,6 +117,7 @@
       font-size: 1rem;
       margin-bottom: 1rem;
     }
+
     button {
       background-color: var(--primary);
       color: black;
@@ -103,9 +129,11 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     button:hover {
       background-color: #d4ac0d;
     }
+
     .result {
       margin-top: 2rem;
       display: none;
@@ -113,16 +141,36 @@
       padding: 1rem;
       border-radius: var(--border-radius);
     }
+
     .result a {
       color: var(--primary);
       font-weight: 600;
       word-break: break-word;
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .sidebar-toggle {
+        display: block;
+      }
+      .main {
+        margin-left: 0;
+        padding: 6rem 1rem 2rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="sidebar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+  <div class="sidebar" id="sidebar">
     <h2>TrackNLink</h2>
     <ul>
       <li><a href="https://tracknlink.github.io/funnel/dashboard.html">Dashboard</a></li>
@@ -178,13 +226,17 @@
         return;
       }
 
-      // Simulate short link (you can replace with backend call)
+      // Simulate short link
       const shortId = Math.random().toString(36).substring(2, 8);
       const shortUrl = `https://trackn.link/f/${shortId}`;
 
       funnelLink.href = shortUrl;
       funnelLink.textContent = shortUrl;
       resultBox.style.display = "block";
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
     }
   </script>
 </body>
