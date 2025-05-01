@@ -23,6 +23,8 @@
       background-color: var(--dark);
       color: white;
       display: flex;
+      flex-direction: row;
+      min-height: 100vh;
     }
 
     .sidebar {
@@ -31,6 +33,9 @@
       min-height: 100vh;
       padding: 2rem 1rem;
       position: fixed;
+      top: 0;
+      left: 0; /* Always visible on desktop */
+      transition: left 0.3s ease;
     }
     .sidebar h2 {
       color: var(--primary);
@@ -69,12 +74,14 @@
       margin-left: 250px;
       padding: 3rem 2rem;
       width: calc(100% - 250px);
+      transition: margin-left 0.3s ease;
     }
 
     .main h1 {
       font-size: 2rem;
       color: var(--primary);
       margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     input[type="url"] {
@@ -146,11 +153,56 @@
       border-radius: var(--border-radius);
       border: none;
     }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary);
+      color: black;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      z-index: 2000; /* stays above sidebar */
+    }
+
+    /* Media query for mobile view */
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -250px; /* Initially hidden on mobile */
+      }
+      .sidebar.open {
+        left: 0;
+      }
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem 1rem;
+      }
+
+      .sidebar-toggle {
+        display: block;
+      }
+
+      input[type="url"] {
+        width: 90%;
+      }
+
+      .funnel-list {
+        padding: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="sidebar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+  <div class="sidebar" id="sidebar">
     <h2>TrackNLink</h2>
     <ul>
       <li><a href="https://tracknlink.github.io/funnel/dashboard.html">Dashboard</a></li>
@@ -185,6 +237,7 @@
   <script>
     const funnelList = document.getElementById('funnelList');
     const funnelInput = document.getElementById('funnelInput');
+    const sidebar = document.getElementById('sidebar');
 
     function toggleDropdown(e, id) {
       e.preventDefault();
@@ -254,6 +307,10 @@
         saveFunnels(funnels);
         loadFunnels();
       }
+    }
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('open');
     }
 
     // Load funnels on page load
