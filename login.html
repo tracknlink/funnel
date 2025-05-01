@@ -80,17 +80,11 @@
     .btn-primary:hover {
       background-color: #f39c12;
     }
-    .footer-link {
-      margin-top: 1.5rem;
-      display: block;
-      color: #aaa;
+    .error-message {
+      color: red;
+      margin-top: 1rem;
       font-size: 0.95rem;
-      text-decoration: none;
     }
-    .footer-link:hover {
-      color: var(--primary);
-    }
-
     @media (max-width: 480px) {
       .login-container {
         padding: 2rem 1.5rem;
@@ -114,7 +108,7 @@
 <body>
   <div class="login-container">
     <h1>TrackNLink</h1>
-    <form>
+    <form id="loginForm">
       <div class="form-group">
         <label for="userid">User ID</label>
         <input type="text" id="userid" name="userid" required />
@@ -124,7 +118,25 @@
         <input type="password" id="password" name="password" required />
       </div>
       <button type="submit" class="btn-primary">Login</button>
+      <div id="errorMsg" class="error-message"></div>
     </form>
   </div>
+
+  <script>
+    const validUserID = "admin123"; // <-- Change to your real user ID
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const enteredID = document.getElementById("userid").value.trim();
+
+      if (enteredID === validUserID) {
+        window.location.href = "dashboard.html"; // Redirect on success
+      } else {
+        errorMsg.textContent = "User ID doesn't match.";
+      }
+    });
+  </script>
 </body>
 </html>
