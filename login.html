@@ -27,6 +27,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 1rem;
     }
     .login-container {
       background-color: #111;
@@ -74,6 +75,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: background 0.3s ease;
+      width: 100%;
     }
     .btn-primary:hover {
       background-color: #f39c12;
@@ -87,6 +89,25 @@
     }
     .footer-link:hover {
       color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 2rem 1.5rem;
+      }
+      .login-container h1 {
+        font-size: 1.6rem;
+      }
+      .btn-primary {
+        font-size: 1rem;
+        padding: 0.9rem 1.5rem;
+      }
+      .form-group label {
+        font-size: 0.95rem;
+      }
+      .form-group input {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
@@ -104,7 +125,6 @@
       </div>
       <button type="submit" class="btn-primary">Login</button>
     </form>
-    
   </div>
 </body>
 </html>
