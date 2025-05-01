@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrackNLink - Maximize Your Affiliate Marketing Profits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f1c40f; /* Yellow */
+      --accent: #6c5ce7;
+      --dark: #000; /* Black */
+      --light: #ecf0f1;
+      --text: #2e2e2e;
+      --gray: #7f8c8d;
+      --border-radius: 12px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 2rem 2rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+    .nav {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 1.1rem;
+      display: flex;
+      gap: 2rem;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav a:hover {
+      color: var(--primary);
+    }
+    header h1 {
+      font-size: 3.5rem;
+      margin-top: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      color: white;
+    }
+    section {
+      padding: 5rem 2rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .feature {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 3rem;
+      max-width: 320px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.2);
+    }
+    .feature h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .feature p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .feature ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      color: var(--gray);
+    }
+    .feature ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 3rem;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent);
+      transform: scale(1.05);
+    }
+    .floating-reviews {
+      position: relative;
+      height: 100px;
+      overflow: hidden;
+      margin-top: 4rem;
+      background: 
+    }
+    .floating-reviews div {
+      position: absolute;
+      white-space: nowrap;
+      animation: scroll 20s linear infinite;
+      font-size: 1.2rem;
+      color: white; /* Updated color to white */
+      font-weight: 600;
+    }
+    @keyframes scroll {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+    .cpa-logos img {
+      height: 50px;
+      margin: 1.5rem;
+      transition: transform 0.3s ease;
+      filter: brightness(0) invert(1); /* Adjusts logos to be visible on dark background */
+    }
+    .cpa-logos img:hover {
+      transform: scale(1.1);
+    }
+    footer {
+      background: var(--dark);
+      color: #ccc;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    footer ul {
+      list-style: none;
+      margin-top: 2rem;
+      padding: 0;
+    }
+    footer li {
+      display: inline;
+      margin: 0 20px;
+    }
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: var(--primary);
+    }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.4rem;
+      }
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+      .feature {
+        max-width: 90%;
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        font-size: 1rem;
+      }
+    }
+	
+	html {
+  scroll-behavior: smooth;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">TrackNLink</div>
+    <div class="nav">
+      <a href="#">Home</a>
+     <a href="#features">Features</a>
+	<a href="#reviews">Review</a>
+	<a href="#pricing">Pricing</a>
+
+      <a href="login.html" class="btn-primary">Login</a>
+
+    </div>
+	<br>
+	<br>
+	<br>
+	<br>
+    <h1>Maximize Your Affiliate Marketing Profits with TrackNLink</h1>
+  </header>
+
+
+
+  <section id="features" >
+    <h2>Powerful Features</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>🔗 Link Shortening</h3>
+        <p>Shorten long URLs easily with TrackNLink.</p>
+      </div>
+      <div class="feature">
+        <h3>💡 Auto-link Keywords</h3>
+        <p>Automatically convert keywords into affiliate links.</p>
+      </div>
+      <div class="feature">
+        <h3>➡️ Dynamic Redirects</h3>
+        <p>Redirect users based on location, device, and more.</p>
+      </div>
+      <div class="feature">
+        <h3>🔍 Link Management</h3>
+        <p>Manage and monitor all your links from one dashboard.</p>
+      </div>
+      <div class="feature">
+        <h3>🚫 Broken Link Finder</h3>
+        <p>Quickly identify and fix broken links across your network.</p>
+      </div>
+      <div class="feature">
+        <h3>🛍️ Product Displays</h3>
+        <p>Display products seamlessly on your site with beautiful layouts.</p>
+      </div>
+      <div class="feature">
+        <h3>🧾 Customized Checkout Links</h3>
+        <p>Customize checkout links for unique user experiences.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" >
+    <h2>Subscription Plans</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Beginner Level</h3>
+        <p><strong>$120/year</strong></p>
+        <small>Perfect for personal use</small>
+        <ul>
+          <li>1 funnel per user</li>
+          <li>Basic analytics</li>
+          <li>Standard link cloaking</li>
+          <li>No custom domains</li>
+          <li>24/7 support</li>
+        </ul>
+        <a href="#" class="btn-primary">Get Started</a>
+      </div>
+
+      <div class="feature">
+        <h3>Marketer Level</h3>
+        <p><strong>$190/year</strong></p>
+        <small>Ideal for professionals and teams</small>
+        <ul>
+          <li>1 funnel per user</li>
+          <li>Advanced analytics</li>
+          <li>Custom domains</li>
+          <li>24/7 support</li>
+        </ul>
+        <a href="#" class="btn-primary">Get Started</a>
+      </div>
+
+      <div class="feature">
+        <h3>Business Level</h3>
+        <p><strong>$6,200/year</strong></p>
+        <small>Best for businesses and agencies</small>
+        <ul>
+          <li>300 users</li>
+          <li>1 funnel per user</li>
+          <li>Unlimited links</li>
+          <li>Full analytics</li>
+        </ul>
+        <a href="#" class="btn-primary">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" >
+    <h2>What Our Users Say</h2>
+    <div class="floating-reviews">
+      <div>⭐⭐⭐⭐⭐ “Amazing tool!” 🚀 “Boosted my revenue!” 🔥 “Must-have for affiliates!” 💼 “Great for teams!” 💡 “Intuitive and simple!” 🔍 “Tracking made easy!” ✅ “Reliable & fast!” 🔗 “Smart linking!” 💯 “Highly recommended!” ⚙️ “Flexible and powerful!” 📈 “Insights are gold!” 🧠 “Smart redirection!” 🔐 “Secure and efficient!” 📊 “Deep analytics!” 👨‍💼 “Great support team!”</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Trusted by Top CPA Networks</h2>
+    <div class="cpa-logos">
+      <img src="https://seeklogo.com/images/A/adsterra-logo-881C54CF2F-seeklogo.com.png" alt="Adsterra">
+      <img src="https://www.adcombo.com/wp-content/uploads/2017/12/logo_black.png" alt="Adcombo">
+      <img src="https://mylead.global/images/logo.svg" alt="MyLead">
+      <img src="https://static.admitad.com/static/images/logos/admitad.svg" alt="Admitad">
+      <img src="https://affmine.com/wp-content/uploads/2019/10/logo.png" alt="Affmine">
+      <img src="https://cpamatica.io/assets/images/logo-cpamatica.svg" alt="Cpamatica">
+      <img src="https://affmy.com/assets/img/logo.svg" alt="Affmy">
+      <img src="https://lucky.online/img/logo.svg" alt="Lucky Online">
+      <img src="https://hilltopads.com/static/images/logo.svg" alt="Hilltop Ads">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 TrackNLink. All rights reserved.</p>
+    <ul>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </footer>
+</body>
+</html>
