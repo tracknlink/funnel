@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Funnel - TrackNLink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f1c40f;
+      --dark: #000;
+      --light: #fff;
+      --gray: #7f8c8d;
+      --border-radius: 12px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: white;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      position: fixed;
+    }
+    .sidebar h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: background 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+    .dropdown ul {
+      display: none;
+      padding-left: 1rem;
+    }
+    .dropdown.open ul {
+      display: block;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 3rem 2rem;
+      width: calc(100% - 250px);
+    }
+    .main h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+    .shortener-box {
+      background-color: #1c1c1c;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+    input[type="url"] {
+      width: 80%;
+      padding: 0.75rem 1rem;
+      border-radius: var(--border-radius);
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: var(--primary);
+      color: black;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #d4ac0d;
+    }
+    .result {
+      margin-top: 2rem;
+      display: none;
+      background-color: #2c2c2c;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+    }
+    .result a {
+      color: var(--primary);
+      font-weight: 600;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>TrackNLink</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
+        <ul id="funnels">
+          <li><a href="#">Create Funnel</a></li>
+          <li><a href="#">Manage Funnel</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
+        <ul id="plans">
+          <li><a href="#">Current Plan</a></li>
+          <li><a href="#">Renew</a></li>
+          <li><a href="#">Upgrade</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Domain</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Create a New Funnel</h1>
+    <div class="shortener-box">
+      <input type="url" id="originalUrl" placeholder="Paste your link here..." required />
+      <br />
+      <button onclick="createFunnel()">Create Funnel</button>
+
+      <div id="resultBox" class="result">
+        <p>Your Funnel Link:</p>
+        <a id="funnelLink" href="#" target="_blank"></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(e, id) {
+      e.preventDefault();
+      document.getElementById(id).parentElement.classList.toggle('open');
+    }
+
+    function createFunnel() {
+      const urlInput = document.getElementById('originalUrl');
+      const resultBox = document.getElementById('resultBox');
+      const funnelLink = document.getElementById('funnelLink');
+
+      const originalUrl = urlInput.value.trim();
+
+      if (!originalUrl) {
+        alert("Please enter a valid URL.");
+        return;
+      }
+
+      // Simulate short link (you can replace with backend call)
+      const shortId = Math.random().toString(36).substring(2, 8);
+      const shortUrl = `https://trackn.link/f/${shortId}`;
+
+      funnelLink.href = shortUrl;
+      funnelLink.textContent = shortUrl;
+      resultBox.style.display = "block";
+    }
+  </script>
+</body>
+</html>

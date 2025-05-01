@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Domains - TrackNLink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f1c40f;
+      --dark: #000;
+      --light: #fff;
+      --gray: #7f8c8d;
+      --border-radius: 12px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: white;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      position: fixed;
+    }
+    .sidebar h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: background 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+    .dropdown ul {
+      display: none;
+      padding-left: 1rem;
+    }
+    .dropdown.open ul {
+      display: block;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 2rem;
+      width: calc(100% - 250px);
+    }
+
+    .main h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .domain-input {
+      margin-bottom: 2rem;
+    }
+
+    input[type="text"] {
+      padding: 0.6rem;
+      width: 70%;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--gray);
+      background: #333;
+      color: white;
+      margin-right: 1rem;
+    }
+
+    button {
+      background-color: var(--primary);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+    }
+
+    button:hover {
+      background-color: #d4ac0d;
+    }
+
+    .domain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .domain-box {
+      background: #1c1c1c;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .domain-box span {
+      font-size: 1rem;
+    }
+
+    .remove-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>TrackNLink</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
+        <ul id="funnels">
+          <li><a href="#">Create Funnel</a></li>
+          <li><a href="#">Manage Funnel</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
+        <ul id="plans">
+          <li><a href="#">Current Plan</a></li>
+          <li><a href="#">Renew</a></li>
+          <li><a href="#">Upgrade</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Domain</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Manage Domains</h1>
+
+    <div class="domain-input">
+      <input type="text" id="domainInput" placeholder="Enter your domain (e.g. yoursite.com)">
+      <button onclick="addDomain()">Add Domain</button>
+    </div>
+
+    <div class="domain-list" id="domainList"></div>
+  </div>
+
+  <script>
+    function toggleDropdown(e, id) {
+      e.preventDefault();
+      document.getElementById(id).parentElement.classList.toggle('open');
+    }
+
+    function getDomains() {
+      return JSON.parse(localStorage.getItem("domains") || "[]");
+    }
+
+    function saveDomains(domains) {
+      localStorage.setItem("domains", JSON.stringify(domains));
+    }
+
+    function renderDomains() {
+      const domainList = document.getElementById("domainList");
+      domainList.innerHTML = "";
+      const domains = getDomains();
+      domains.forEach((domain, index) => {
+        const div = document.createElement("div");
+        div.className = "domain-box";
+        div.innerHTML = `
+          <span>${domain}</span>
+          <button class="remove-btn" onclick="removeDomain(${index})">Remove</button>
+        `;
+        domainList.appendChild(div);
+      });
+    }
+
+    function addDomain() {
+      const input = document.getElementById("domainInput");
+      const value = input.value.trim();
+      if (value) {
+        const domains = getDomains();
+        domains.push(value);
+        saveDomains(domains);
+        input.value = "";
+        renderDomains();
+      }
+    }
+
+    function removeDomain(index) {
+      const domains = getDomains();
+      domains.splice(index, 1);
+      saveDomains(domains);
+      renderDomains();
+    }
+
+    // Initialize on load
+    renderDomains();
+  </script>
+
+</body>
+</html>

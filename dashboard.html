@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrackNLink Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    :root {
+      --primary: #f1c40f;
+      --dark: #000;
+      --light: #fff;
+      --gray: #7f8c8d;
+      --border-radius: 12px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: white;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      position: fixed;
+    }
+    .sidebar h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: background 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+    .dropdown ul {
+      display: none;
+      padding-left: 1rem;
+    }
+    .dropdown.open ul {
+      display: block;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 2rem;
+      width: calc(100% - 250px);
+    }
+    .main h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .cards {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .card {
+      flex: 1;
+      background: #1c1c1c;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      min-width: 200px;
+    }
+    .card h2 {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    .charts {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    canvas {
+      background: #1c1c1c;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      height: 300px !important;
+      width: 100% !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>TrackNLink</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
+        <ul id="funnels">
+          <li><a href="#">Create Funnel</a></li>
+          <li><a href="#">Manage Funnel</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
+        <ul id="plans">
+          <li><a href="#">Current Plan</a></li>
+          <li><a href="#">Renew</a></li>
+          <li><a href="#">Upgrade</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Domain</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Dashboard Overview</h1>
+    <div class="cards">
+      <div class="card">
+        <h2>120</h2>
+        <p>Total Funnels</p>
+      </div>
+      <div class="card">
+        <h2>8.2K</h2>
+        <p>Total Impressions</p>
+      </div>
+    </div>
+    <div class="charts">
+      <canvas id="impressionChart"></canvas>
+      <canvas id="funnelChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(e, id) {
+      e.preventDefault();
+      document.getElementById(id).parentElement.classList.toggle('open');
+    }
+
+    const impressionCtx = document.getElementById('impressionChart').getContext('2d');
+    new Chart(impressionCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'Monthly Impressions',
+          data: [1200, 1900, 3000, 5000, 8200],
+          backgroundColor: 'rgba(241, 196, 15, 0.2)',
+          borderColor: 'rgba(241, 196, 15, 1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+    const funnelCtx = document.getElementById('funnelChart').getContext('2d');
+    new Chart(funnelCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'Funnels Created',
+          data: [2, 5, 7, 8, 10],
+          backgroundColor: 'rgba(241, 196, 15, 0.7)'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  </script>
+</body>
+</html>

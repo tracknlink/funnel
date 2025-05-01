@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Renew Plan - TrackNLink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f1c40f;
+      --dark: #000;
+      --light: #fff;
+      --gray: #7f8c8d;
+      --border-radius: 12px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: white;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      position: fixed;
+    }
+    .sidebar h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: background 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+    .dropdown ul {
+      display: none;
+      padding-left: 1rem;
+    }
+    .dropdown.open ul {
+      display: block;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 3rem 2rem;
+      width: calc(100% - 250px);
+    }
+
+    .main h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .renew-card {
+      background-color: #1c1c1c;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      max-width: 600px;
+    }
+
+    .renew-card h2 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .plan-info p {
+      margin-bottom: 0.5rem;
+    }
+
+    .renew-options {
+      margin-top: 2rem;
+    }
+
+    .renew-options label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .renew-options select {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: var(--border-radius);
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .total-price {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .renew-actions button {
+      background-color: var(--primary);
+      color: black;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .renew-actions button:hover {
+      background-color: #d4ac0d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>TrackNLink</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
+        <ul id="funnels">
+          <li><a href="#">Create Funnel</a></li>
+          <li><a href="#">Manage Funnel</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
+        <ul id="plans">
+          <li><a href="#">Current Plan</a></li>
+          <li><a href="#">Renew</a></li>
+          <li><a href="#">Upgrade</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Domain</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Renew Your Plan</h1>
+
+    <div class="renew-card">
+      <h2>Marketer Plan</h2>
+      <div class="plan-info">
+        <p><strong>Current Expiry:</strong> April 30, 2025</p>
+        <p><strong>Monthly Price:</strong> $29</p>
+      </div>
+
+      <div class="renew-options">
+        <label for="duration">Select Renewal Period:</label>
+        <select id="duration" onchange="updateTotal()">
+          <option value="1">1 Month - $10</option>
+          <option value="3">3 Months - $75</option>
+          <option value="6">6 Months - $134</option>
+        </select>
+
+        <div class="total-price" id="totalPrice">
+          Total: $10
+        </div>
+
+        <div class="renew-actions">
+          <button onclick="alert('Renewal Successful!')">Renew Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(e, id) {
+      e.preventDefault();
+      document.getElementById(id).parentElement.classList.toggle('open');
+    }
+
+    function updateTotal() {
+      const duration = document.getElementById('duration').value;
+      const pricePerMonth = 10;
+      const total = pricePerMonth * duration;
+      document.getElementById('totalPrice').innerText = `Total: $${total}`;
+    }
+  </script>
+
+</body>
+</html>
