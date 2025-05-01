@@ -141,28 +141,31 @@
 <body>
 
   <div class="sidebar">
-    <h2>TrackNLink</h2>
-    <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
-        <ul id="funnels">
-          <li><a href="#">Create Funnel</a></li>
-          <li><a href="#">Manage Funnel</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
-        <ul id="plans">
-          <li><a href="#">Current Plan</a></li>
-          <li><a href="#">Renew</a></li>
-          <li><a href="#">Upgrade</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Domain</a></li>
-      <li><a href="#">Logout</a></li>
-    </ul>
-  </div>
+  <h2>TrackNLink</h2>
+  <ul>
+    <li><a href="https://tracknlink.github.io/funnel/dashboard.html">Dashboard</a></li>
+
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
+      <ul id="funnels">
+        <li><a href="https://tracknlink.github.io/funnel/createfunnel.html">Create Funnel</a></li>
+        <li><a href="https://tracknlink.github.io/funnel/managefunnel.html">Manage Funnel</a></li>
+      </ul>
+    </li>
+
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
+      <ul id="plans">
+        <li><a href="https://tracknlink.github.io/funnel/currentplan.html">Current Plan</a></li>
+        <li><a href="https://tracknlink.github.io/funnel/renew.html">Renew</a></li>
+        <li><a href="#">Upgrade</a></li>
+      </ul>
+    </li>
+
+    <li><a href="https://tracknlink.github.io/funnel/domain.html">Domain</a></li>
+    <li><a href="https://tracknlink.github.io/funnel/index.html">Logout</a></li>
+  </ul>
+</div>
 
   <div class="main">
     <h1>Manage Domains</h1>
