@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrackNLink - Payment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-xl mx-auto my-10 bg-white p-6 sm:p-8 rounded shadow">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-6 text-center text-yellow-500">TrackNLink Subscription Payment</h1>
+
+    <!-- Plan Selection -->
+    <div class="mb-6">
+      <label for="plan" class="block text-sm font-semibold text-gray-700 mb-1">Choose Plan</label>
+      <select id="plan" class="w-full border px-4 py-2 rounded">
+        <option value="9">Beginner - $9/mo</option>
+        <option value="29" selected>Marketer - $29/mo</option>
+        <option value="59">Business - $59/mo</option>
+      </select>
+    </div>
+
+    <!-- Card Payment Section -->
+    <div id="cardSection">
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+        <input id="fullName" type="text" class="w-full border px-4 py-2 rounded" placeholder="John Doe"/>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+        <input id="email" type="email" class="w-full border px-4 py-2 rounded" placeholder="john@example.com"/>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Card Number</label>
+        <input id="cardNumber" type="text" class="w-full border px-4 py-2 rounded" placeholder="1234 5678 9012 3456"/>
+      </div>
+      <div class="flex gap-4 mb-4">
+        <div class="w-1/2">
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Expiry</label>
+          <input id="expiry" type="text" class="w-full border px-4 py-2 rounded" placeholder="MM/YY"/>
+        </div>
+        <div class="w-1/2">
+          <label class="block text-sm font-semibold text-gray-700 mb-1">CVC</label>
+          <input id="cvc" type="text" class="w-full border px-4 py-2 rounded" placeholder="123"/>
+        </div>
+      </div>
+      
+      <!-- Save Payment Method Button -->
+      <button id="savePaymentMethod" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+        Save Payment Method
+      </button>
+
+      <!-- Make Payment Button (Initially Hidden) -->
+      <button id="makePayment" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 hidden">
+        Make Payment
+      </button>
+    </div>
+
+    <!-- Saved Card Section (Initially Hidden) -->
+    <div id="savedCardSection" class="mt-6 hidden">
+      <h3 class="font-semibold text-gray-700">Saved Card</h3>
+      <div class="p-4 bg-gray-50 rounded shadow">
+        <p id="savedCardDetails" class="text-sm text-gray-700"></p>
+        <button id="deleteSavedCard" class="text-red-500 hover:text-red-700 mt-2">Delete Saved Card</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Script -->
+  <script>
+    const savePaymentMethodButton = document.getElementById('savePaymentMethod');
+    const makePaymentButton = document.getElementById('makePayment');
+    const savedCardSection = document.getElementById('savedCardSection');
+    const savedCardDetails = document.getElementById('savedCardDetails');
+    const deleteSavedCardButton = document.getElementById('deleteSavedCard');
+
+    // Function to display saved card
+    function displaySavedCard() {
+      const savedCard = JSON.parse(localStorage.getItem('savedCard'));
+      if (savedCard) {
+        savedCardDetails.textContent = `Full Name: ${savedCard.fullName}, Email: ${savedCard.email}, Card Number: **** **** **** ${savedCard.cardNumber.slice(-4)}, Expiry: ${savedCard.expiry}`;
+        savedCardSection.classList.remove('hidden');
+        makePaymentButton.classList.remove('hidden');
+        savePaymentMethodButton.classList.add('hidden');
+      }
+    }
+
+    // If there's a saved card, display it
+    displaySavedCard();
+
+    // Event listener for Save Payment Method button
+    savePaymentMethodButton.addEventListener('click', function () {
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const cardNumber = document.getElementById('cardNumber').value;
+      const expiry = document.getElementById('expiry').value;
+      const cvc = document.getElementById('cvc').value;
+
+      // Save card details to localStorage
+      const cardDetails = {
+        fullName,
+        email,
+        cardNumber,
+        expiry,
+        cvc
+      };
+
+      localStorage.setItem('savedCard', JSON.stringify(cardDetails));
+
+      // Display the saved card and update UI
+      displaySavedCard();
+    });
+
+    // Event listener for Delete Saved Card button
+    deleteSavedCardButton.addEventListener('click', function () {
+      // Remove the saved card from localStorage
+      localStorage.removeItem('savedCard');
+
+      // Hide the saved card section and reset UI
+      savedCardSection.classList.add('hidden');
+      makePaymentButton.classList.add('hidden');
+      savePaymentMethodButton.classList.remove('hidden');
+    });
+
+   
+  </script>
+</body>
+</html>
