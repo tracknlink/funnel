@@ -13,42 +13,43 @@
       --gray: #7f8c8d;
       --border-radius: 12px;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       color: white;
       display: flex;
-      min-height: 100vh;
     }
 
-    /* Sidebar Styles */
     .sidebar {
       width: 250px;
       background-color: #111;
       min-height: 100vh;
       padding: 2rem 1rem;
       position: fixed;
-      top: 0;
-      left: 0;
-      transition: left 0.3s ease;
     }
+
     .sidebar h2 {
       color: var(--primary);
       font-size: 1.8rem;
       margin-bottom: 2rem;
       text-align: center;
     }
+
     .sidebar ul {
       list-style: none;
     }
+
     .sidebar li {
       margin-bottom: 1rem;
     }
+
     .sidebar a {
       text-decoration: none;
       color: white;
@@ -58,178 +59,156 @@
       border-radius: var(--border-radius);
       transition: background 0.2s;
     }
+
     .sidebar a:hover {
       background-color: var(--primary);
       color: #000;
     }
+
     .dropdown ul {
       display: none;
       padding-left: 1rem;
     }
+
     .dropdown.open ul {
       display: block;
     }
 
-    /* Main Content */
     .main {
       margin-left: 250px;
       padding: 3rem 2rem;
       width: calc(100% - 250px);
-      transition: margin-left 0.3s ease;
     }
 
-    .main h1 {
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 2rem;
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      animation: slideUp 0.8s ease-in-out;
     }
 
-    .renew-card {
+    .stat-card {
       background-color: #1c1c1c;
       padding: 2rem;
       border-radius: var(--border-radius);
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .renew-card h2 {
-      color: var(--primary);
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .plan-info p {
-      margin-bottom: 0.5rem;
-    }
-
-    .renew-options {
-      margin-top: 2rem;
-    }
-
-    .renew-options label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .renew-options select {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: var(--border-radius);
-      border: none;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .total-price {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: var(--primary);
-    }
-
-    .renew-actions button {
-      background-color: var(--primary);
-      color: black;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-weight: bold;
-      font-size: 1rem;
+      width: calc(25% - 1.5rem);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, border 0.3s;
+      text-align: center;
       cursor: pointer;
+      position: relative;
     }
 
-    .renew-actions button:hover {
+    .stat-card.selected {
+      border: 2px solid var(--primary);
+      background-color: #2c2c2c;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-card h3 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card p {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    .renew-button {
+      margin-top: 1.5rem;
+      display: none;
+      text-align: center;
+    }
+
+    .renew-button button {
+      background-color: var(--primary);
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .renew-button button:hover {
       background-color: #d4ac0d;
     }
 
-    /* Mobile-friendly Styles */
-    .sidebar-toggle {
-      display: none;
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: var(--primary);
-      color: black;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      z-index: 2000;
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        left: -250px;
+    @media (max-width: 1024px) {
+      .stat-card {
+        width: 45%;
       }
-      .main {
-        margin-left: 0;
-        padding: 2rem 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .stat-card {
         width: 100%;
-      }
-      .sidebar-toggle {
-        display: block;
-      }
-      .sidebar.open {
-        left: 0;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar Toggle Button -->
-  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
-
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar">
     <h2>TrackNLink</h2>
     <ul>
-      <li><a href="https://tracknlink.github.io/funnel/dashboard.html">Dashboard</a></li>
+      <li><a href="#">Dashboard</a></li>
       <li class="dropdown">
         <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
         <ul id="funnels">
-          <li><a href="https://tracknlink.github.io/funnel/createfunnel.html">Create Funnel</a></li>
-          <li><a href="https://tracknlink.github.io/funnel/managefunnel.html">Manage Funnel</a></li>
+          <li><a href="#">Create Funnel</a></li>
+          <li><a href="#">Manage Funnel</a></li>
         </ul>
       </li>
       <li class="dropdown">
         <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
         <ul id="plans">
-          <li><a href="https://tracknlink.github.io/funnel/currentplan.html">Current Plan</a></li>
-          <li><a href="https://tracknlink.github.io/funnel/renew.html">Renew</a></li>
+          <li><a href="#">Current Plan</a></li>
+          <li><a href="#">Renew</a></li>
           <li><a href="#">Upgrade</a></li>
         </ul>
       </li>
-      <li><a href="https://tracknlink.github.io/funnel/domain.html">Domain</a></li>
-      <li><a href="https://tracknlink.github.io/funnel/index.html">Logout</a></li>
+      <li><a href="#">Domain</a></li>
+      <li><a href="#">Logout</a></li>
     </ul>
   </div>
 
   <div class="main">
-    <h1>Renew Your Plan</h1>
-
-    <div class="renew-card">
-      <h2>Marketer Plan</h2>
-      <div class="plan-info">
-        <p><strong>Current Expiry:</strong> April 30, 2025</p>
-        <p><strong>Monthly Price:</strong> $29</p>
+    <div class="cards-container" id="cardsContainer">
+      <div class="stat-card" data-plan="Beginner">
+        <h3>Beginner</h3>
+        <p>$9 / month</p>
       </div>
-
-      <div class="renew-options">
-        <label for="duration">Select Renewal Period:</label>
-        <select id="duration" onchange="updateTotal()">
-          <option value="1">1 Month - $10</option>
-          <option value="3">3 Months - $75</option>
-          <option value="6">6 Months - $134</option>
-        </select>
-
-        <div class="total-price" id="totalPrice">
-          Total: $10
-        </div>
-
-        <div class="renew-actions">
-          <button onclick="alert('Renewal Successful!')">Renew Now</button>
-        </div>
+      <div class="stat-card" data-plan="Marketer">
+        <h3>Marketer</h3>
+        <p>$29 / month</p>
+      </div>
+      <div class="stat-card" data-plan="Business">
+        <h3>Business</h3>
+        <p>$59 / month</p>
+      </div>
+      <div class="stat-card" data-plan="Enterprise">
+        <h3>Enterprise</h3>
+        <p>Custom Pricing</p>
       </div>
     </div>
   </div>
@@ -240,16 +219,16 @@
       document.getElementById(id).parentElement.classList.toggle('open');
     }
 
-    function updateTotal() {
-      const duration = document.getElementById('duration').value;
-      const pricePerMonth = 10;
-      const total = pricePerMonth * duration;
-      document.getElementById('totalPrice').innerText = `Total: $${total}`;
-    }
+    const cards = document.querySelectorAll('.stat-card');
+    const renewBtnContainer = document.getElementById('renewButton');
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        renewBtnContainer.style.display = 'block';
+      });
+    });
   </script>
 
 </body>
