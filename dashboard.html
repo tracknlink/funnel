@@ -1,253 +1,414 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TrackNLink Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrackNLink - Maximize Your Affiliate Marketing Profits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #f1c40f;
+      --accent: #6c5ce7;
       --dark: #000;
-      --light: #fff;
+      --light: #ecf0f1;
+      --text: #ecf0f1;
       --gray: #7f8c8d;
       --border-radius: 12px;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
-      color: white;
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    .sidebar {
-      width: 250px;
-      background-color: #111;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      position: fixed;
-      transition: transform 0.3s ease;
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 2rem 2rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
-    .sidebar h2 {
+
+    .logo {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-size: 2.5rem;
+      font-weight: 700;
       color: var(--primary);
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      text-align: center;
+      letter-spacing: 1px;
     }
-    .sidebar ul {
-      list-style: none;
-    }
-    .sidebar li {
-      margin-bottom: 1rem;
-    }
-    .sidebar a {
-      text-decoration: none;
-      color: white;
-      font-weight: 500;
-      display: block;
-      padding: 0.5rem 1rem;
-      border-radius: var(--border-radius);
-      transition: background 0.2s;
-    }
-    .sidebar a:hover {
-      background-color: var(--primary);
-      color: #000;
-    }
-    .dropdown ul {
+
+    .nav-toggle {
       display: none;
-      padding-left: 1rem;
-    }
-    .dropdown.open ul {
-      display: block;
-    }
-
-    .main {
-      margin-left: 250px;
-      padding: 2rem;
-      transition: margin-left 0.3s ease;
-    }
-
-    .main h1 {
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .cards {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      flex: 1;
-      background: #1c1c1c;
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      min-width: 200px;
-    }
-
-    .card h2 {
       font-size: 2rem;
       color: var(--primary);
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      cursor: pointer;
+      z-index: 1000;
     }
 
-    .charts {
+    .nav {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
       display: flex;
-      flex-direction: column;
       gap: 2rem;
     }
 
-    canvas {
-      background: #1c1c1c;
-      padding: 1rem;
-      border-radius: var(--border-radius);
-      height: 300px !important;
-      width: 100% !important;
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    /* Sidebar toggle button */
-    .sidebar-btn {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1000;
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin-top: 5rem;
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      color: white;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 3rem;
+      max-width: 320px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .feature p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .feature ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      color: var(--gray);
+    }
+
+    .feature ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      display: inline-block;
       background-color: var(--primary);
-      color: #000;
-      font-weight: bold;
-      font-size: 1.5rem;
-      border: none;
-      padding: 0.5rem 1rem;
+      color: white;
+      padding: 1rem 3rem;
       border-radius: var(--border-radius);
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      display: none;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
     }
 
-    /* Responsive styles */
+    .btn-primary:hover {
+      background-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .floating-reviews {
+      position: relative;
+      height: 100px;
+      overflow: hidden;
+      margin-top: 4rem;
+    }
+
+    .floating-reviews div {
+      position: absolute;
+      white-space: nowrap;
+      animation: scroll 20s linear infinite;
+      font-size: 1.2rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+
+    .cpa-logos img {
+      height: 50px;
+      margin: 1.5rem;
+      transition: transform 0.3s ease;
+      filter: brightness(0) invert(1);
+    }
+
+    .cpa-logos img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: var(--dark);
+      color: #ccc;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    footer ul {
+      list-style: none;
+      margin-top: 2rem;
+      padding: 0;
+    }
+
+    footer li {
+      display: inline;
+      margin: 0 20px;
+    }
+
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+    }
+
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-        position: fixed;
-        height: 100%;
+      .nav {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: var(--dark);
+        position: absolute;
+        top: 5rem;
+        right: 2rem;
+        padding: 1rem 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         z-index: 999;
       }
 
-      .sidebar.open {
-        transform: translateX(0);
+      .nav.active {
+        display: flex;
       }
 
-      .main {
-        margin-left: 0;
-        padding: 1rem;
-      }
-
-      .sidebar-btn {
+      .nav-toggle {
         display: block;
       }
+
+      .nav a {
+        padding: 0.5rem 0;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      header h1 {
+        font-size: 2rem;
+        padding: 0 1rem;
+        margin-top: 6rem;
+      }
+
+      section {
+        padding: 3rem 1rem;
+      }
+
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature {
+        max-width: 90%;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
-  <button class="sidebar-btn" onclick="toggleSidebar()">☰</button>
 
-  <div class="sidebar" id="sidebar">
-    <h2>TrackNLink</h2>
+  <header>
+    <div class="logo">TrackNLink</div>
+    <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+    <nav class="nav" id="navMenu">
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#reviews">Review</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://tracknlink.github.io/funnel/login.html" class="btn-primary">Login</a>
+    </nav>
+    <h1>Maximize Your Affiliate Marketing Profits with TrackNLink</h1>
+  </header>
+
+  <section id="features">
+    <h2>Powerful Features</h2>
+    <div class="features">
+      <div class="feature"><h3>🔗 Link Shortening</h3><p>Shorten long URLs easily with TrackNLink.</p></div>
+      <div class="feature"><h3>💡 Auto-link Keywords</h3><p>Automatically convert keywords into affiliate links.</p></div>
+      <div class="feature"><h3>➡️ Dynamic Redirects</h3><p>Redirect users based on location, device, and more.</p></div>
+      <div class="feature"><h3>🔍 Link Management</h3><p>Manage and monitor all your links from one dashboard.</p></div>
+      <div class="feature"><h3>🚫 Broken Link Finder</h3><p>Quickly identify and fix broken links across your network.</p></div>
+      <div class="feature"><h3>🛍️ Product Displays</h3><p>Display products seamlessly on your site with beautiful layouts.</p></div>
+      <div class="feature"><h3>🧾 Customized Checkout Links</h3><p>Customize checkout links for unique user experiences.</p></div>
+    </div>
+  </section>
+
+  <section id="pricing">
+  <h2>Subscription Plans</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Lite Beginner</h3>
+      <p><strong>$10/month</strong></p>
+      <small>Budget-friendly for new marketers</small>
+      <ul>
+        <li>1 funnel</li>
+        <li>Limited analytics</li>
+        <li>No custom domain</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#" class="btn-primary">Get Started</a>
+    </div>
+
+    <div class="feature">
+      <h3>Beginner Level</h3>
+      <p><strong>$120/year</strong></p>
+      <small>Perfect for personal use</small>
+      <ul>
+        <li>1 funnel per user</li>
+        <li>Basic analytics</li>
+        <li>Standard link cloaking</li>
+        <li>No custom domains</li>
+        <li>24/7 support</li>
+      </ul>
+      <a href="#" class="btn-primary">Get Started</a>
+    </div>
+
+    <div class="feature">
+      <h3>Marketer Level</h3>
+      <p><strong>$190/year</strong></p>
+      <small>Ideal for professionals and teams</small>
+      <ul>
+        <li>1 funnel per user</li>
+        <li>Advanced analytics</li>
+        <li>Custom domains</li>
+        <li>24/7 support</li>
+      </ul>
+      <a href="#" class="btn-primary">Get Started</a>
+    </div>
+
+    <div class="feature">
+      <h3>Business Level</h3>
+      <p><strong>$6,200/year</strong></p>
+      <small>Best for businesses and agencies</small>
+      <ul>
+        <li>300 users</li>
+        <li>1 funnel per user</li>
+        <li>Unlimited links</li>
+        <li>Full analytics</li>
+      </ul>
+      <a href="#" class="btn-primary">Get Started</a>
+    </div>
+  </div>
+</section>
+
+
+  <section id="reviews">
+    <h2>What Our Users Say</h2>
+    <div class="floating-reviews">
+      <div>⭐⭐⭐⭐⭐ “Amazing tool!” 🚀 “Boosted my revenue!” 🔥 “Must-have for affiliates!” 💼 “Great for teams!” 💡 “Intuitive and simple!” 🔍 “Tracking made easy!” ✅ “Reliable & fast!” 🔗 “Smart linking!” 💯 “Highly recommended!” ⚙️ “Flexible and powerful!” 📈 “Insights are gold!” 🧠 “Smart redirection!” 🔐 “Secure and efficient!” 📊 “Deep analytics!” 👨‍💼 “Great support team!”</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Trusted by Top CPA Networks</h2>
+    <div class="cpa-logos">
+      <img src="adsterra.png" alt="Adsterra">
+      <img src="adcombo.png" alt="Adcombo">
+      <img src="mylead.png" alt="MyLead">
+      <img src="admitad.png" alt="Admitad">
+      <img src="affmine.png" alt="Affmine">
+      <img src="affmy.png" alt="Affmy">
+      <img src="lucky.png" alt="Lucky Online">
+      
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 TrackNLink. All rights reserved.</p>
     <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'funnels')">Funnels ▼</a>
-        <ul id="funnels">
-          <li><a href="https://tracknlink.github.io/funnel/createfunnel.html">Create Funnel</a></li>
-          <li><a href="https://tracknlink.github.io/funnel/managefunnel.html">Manage Funnel</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" onclick="toggleDropdown(event, 'plans')">Account Plan ▼</a>
-        <ul id="plans">
-          <li><a href="https://tracknlink.github.io/funnel/currentplan.html">Current Plan</a></li>
-          <li><a href="https://tracknlink.github.io/funnel/renew.html">Renew</a></li>
-          <li><a href="#">Upgrade</a></li>
-        </ul>
-      </li>
-      <li><a href="https://tracknlink.github.io/funnel/domain.html">Domain</a></li>
-      <li><a href="https://tracknlink.github.io/funnel/index.html">Logout</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
-  </div>
-
-  <div class="main">
-    <h1>Dashboard Overview</h1>
-    <div class="cards">
-      <div class="card">
-        <h2>120</h2>
-        <p>Total Funnels</p>
-      </div>
-      <div class="card">
-        <h2>8.2K</h2>
-        <p>Total Impressions</p>
-      </div>
-    </div>
-    <div class="charts">
-      <canvas id="impressionChart"></canvas>
-      <canvas id="funnelChart"></canvas>
-    </div>
-  </div>
+  </footer>
 
   <script>
-    function toggleDropdown(e, id) {
-      e.preventDefault();
-      document.getElementById(id).parentElement.classList.toggle('open');
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
     }
-
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('open');
-    }
-
-    const impressionCtx = document.getElementById('impressionChart').getContext('2d');
-    new Chart(impressionCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'Monthly Impressions',
-          data: [1200, 1900, 3000, 5000, 8200],
-          backgroundColor: 'rgba(241, 196, 15, 0.2)',
-          borderColor: 'rgba(241, 196, 15, 1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-
-    const funnelCtx = document.getElementById('funnelChart').getContext('2d');
-    new Chart(funnelCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'Funnels Created',
-          data: [2, 5, 7, 8, 10],
-          backgroundColor: 'rgba(241, 196, 15, 0.7)'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
   </script>
 </body>
 </html>
